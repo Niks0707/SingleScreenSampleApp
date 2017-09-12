@@ -35,6 +35,4 @@ public class LoadProductRequest extends BaseRequest<Product> {
     public void setupService() {
         service = getRetrofit().create(ProductApi.class);
     }
-
-
 }

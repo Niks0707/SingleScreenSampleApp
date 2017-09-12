@@ -14,14 +14,14 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class SimilarProductViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView nameTextView;
+    private TextView retailerTextView;
     private TextView priceTextView;
     private TextView salePriceTextView;
     private ImageView imageView;
 
     public SimilarProductViewHolder(View itemView) {
         super(itemView);
-        nameTextView = itemView.findViewById(R.id.view_similar_product_name_text_view);
+        retailerTextView = itemView.findViewById(R.id.view_similar_product_retailer_text_view);
         priceTextView = itemView.findViewById(R.id.view_similar_product_price_text_view);
         salePriceTextView = itemView.findViewById(R.id.view_similar_product_sale_price_text_view);
         imageView = itemView.findViewById(R.id.view_similar_product_image_view);
@@ -31,15 +31,29 @@ public class SimilarProductViewHolder extends RecyclerView.ViewHolder {
 
     public void onBind(ProductInfo productInfo) {
         if (productInfo.getProduct() != null) {
-            nameTextView.setText(productInfo.getProduct().getRetailer());
-            priceTextView.setText(productInfo.getProduct().getPrice());
-            salePriceTextView.setText(productInfo.getProduct().getSalePrice());
+            retailerTextView.setText(productInfo.getProduct().getRetailer());
+
+            priceTextView.setText(priceTextView.getResources().getString(
+                    R.string.price,
+                    productInfo.getProduct().getPrice()));
+
+            Float sale = productInfo.getProduct().getPrice() != 0
+                    ? productInfo.getProduct().getSalePrice() / productInfo.getProduct().getPrice() * 100 :
+                    0f;
+            salePriceTextView.setText(priceTextView.getResources().getString(
+                    R.string.sale_price,
+                    productInfo.getProduct().getSalePrice(),
+                    sale));
+
             if (productInfo.getProduct().getPrimaryPhotos() != null
                     && productInfo.getProduct().getPrimaryPhotos().size() > 0) {
+
                 imageView.setBackgroundColor(0);
                 Picasso.with(imageView.getContext())
                         .load(productInfo.getProduct().getPrimaryPhotos().get(0).getWebUrl())
-                        .transform(new RoundedCornersTransformation(30, 5))
+                        .fit()
+                        .centerCrop()
+                        .transform(new RoundedCornersTransformation(15, 5))
                         .into(imageView);
             }
         }

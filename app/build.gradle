@@ -29,17 +29,16 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    final SUPPORT_VERSION = '26.+';
+    final SUPPORT_VERSION = '26.0.2'
 
     compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.JakeWharton:ViewPagerIndicator:2.4.1@aar'
     compile "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'jp.wasabeef:picasso-transformations:2.1.2'
-//    compile "com.android.support:support-emoji:26.0.2"
-//    compile "com.android.support:support-emoji-bundled:$SUPPORT_VERSION"
-//    compile "com.android.support:support-emoji-bundled:25"
+    compile "com.android.support:support-emoji:$SUPPORT_VERSION"
+    compile 'com.vdurmont:emoji-java:3.3.0'
 
 }

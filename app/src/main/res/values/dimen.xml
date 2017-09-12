@@ -31,5 +31,5 @@
     <dimen name="product_size_view_size">50dp</dimen>
     <dimen name="product_color_view_size">50dp</dimen>
     <dimen name="product_image_height">350dp</dimen>
-    <dimen name="similar_product_image_height">200dp</dimen>
+    <dimen name="similar_product_image_height">260dp</dimen>
 </resources>

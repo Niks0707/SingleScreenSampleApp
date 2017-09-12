@@ -39,10 +39,13 @@ public class ProductImagePageAdapter extends PagerAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewGroup layout = (ViewGroup)
                 inflater.inflate(R.layout.view_image_page, container, false);
+
         final ImageView imageView = layout.findViewById(R.id.view_image_page_image_view);
         imageView.setBackgroundColor(0);
         Picasso.with(imageView.getContext())
                 .load(imageUrls.get(position).getWebUrl())
+                .fit()
+                .centerInside()
                 .transform(new RoundedCornersTransformation(30, 5))
                 .into(imageView);
         container.addView(layout);

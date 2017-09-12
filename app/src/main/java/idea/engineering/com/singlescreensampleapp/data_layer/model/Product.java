@@ -14,7 +14,7 @@ public class Product {
     @SerializedName("name")
     private String mName;
     @SerializedName("price")
-    private String mPrice;
+    private Float mPrice;
     @SerializedName("primary_photos")
     private List<Photo> mPrimaryPhotos;
     @SerializedName("product_colors")
@@ -28,7 +28,7 @@ public class Product {
     @SerializedName("return_policy")
     private String mReturnPolicy;
     @SerializedName("sale_price")
-    private String mSalePrice;
+    private Float mSalePrice;
     @SerializedName("secondary_photos")
     private List<Photo> mSecondaryPhotos;
     @SerializedName("shipping_cost")
@@ -60,11 +60,11 @@ public class Product {
         mName = name;
     }
 
-    public String getPrice() {
+    public Float getPrice() {
         return mPrice;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Float price) {
         mPrice = price;
     }
 
@@ -116,11 +116,11 @@ public class Product {
         mReturnPolicy = returnPolicy;
     }
 
-    public String getSalePrice() {
+    public Float getSalePrice() {
         return mSalePrice;
     }
 
-    public void setSalePrice(String salePrice) {
+    public void setSalePrice(Float salePrice) {
         mSalePrice = salePrice;
     }
 

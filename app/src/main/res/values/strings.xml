@@ -9,4 +9,7 @@
     <string name="similar_title_text">Other items in a similar price range</string>
     <string name="similar_text">I found some similar items you might want to consider looking as further.</string>
     <string name="return_policy_title">Free Shipping &amp; Returns</string>
+    <string name="add_to_bag">Add to Bag</string>
+    <string name="price">$%.2f</string>
+    <string name="sale_price">$%1$.2f, %2$.0f%% off</string>
 </resources>

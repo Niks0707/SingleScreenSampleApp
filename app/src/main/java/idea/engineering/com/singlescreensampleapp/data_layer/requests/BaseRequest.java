@@ -26,15 +26,10 @@ public abstract class BaseRequest<T> {
     protected Retrofit getRetrofit() {
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-//        JavaNetCookieJar jncj = new JavaNetCookieJar(cookieManager);
-//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-//                .addInterceptor(interceptor)
-//                .cookieJar(jncj)
                 .build();
 
         return new Retrofit.Builder()

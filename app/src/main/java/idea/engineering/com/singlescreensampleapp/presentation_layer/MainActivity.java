@@ -9,7 +9,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.vdurmont.emoji.EmojiParser;
 import com.viewpagerindicator.CirclePageIndicator;
+
+import java.util.Locale;
 
 import idea.engineering.com.singlescreensampleapp.R;
 import idea.engineering.com.singlescreensampleapp.data_layer.data_source.BaseDataSource;
@@ -54,17 +57,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void notifyDidLoadItems(ProductInfo productInfo) {
+
                 if (productInfo.getProduct() != null) {
+
                     setupViews(productInfo);
-                    if (productInfo.getProduct().getPrimaryPhotos() != null) {
-                        productImagePageAdapter.addPhotoList(productInfo.getProduct().getPrimaryPhotos());
-                    }
+
                     if (productInfo.getProduct().getSecondaryPhotos() != null) {
                         productImagePageAdapter.addPhotoList(productInfo.getProduct().getSecondaryPhotos());
                     }
+
                     if (productInfo.getProduct().getSizes() != null) {
                         productSizeAdapter.addSizes(productInfo.getProduct().getSizes());
                     }
+
                     if (productInfo.getProduct().getProductColors() != null) {
                         productColorAdapter.addColors(productInfo.getProduct().getProductColors());
                     }
@@ -85,7 +90,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void notifyDidLoadItems(SimilarProducts data) {
-                similarProductAdapter.addProducts(data.getSimilarProducts());
+
+                if (data.getSimilarProducts() != null) {
+                    similarProductAdapter.addProducts(data.getSimilarProducts());
+                }
             }
 
             @Override
@@ -97,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -107,16 +116,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        productDataSource.addListener(productDataSourceListener);
+    protected void onResume() {
+
         productDataSource.reloadData();
-        similarProductsDataSource.addListener(similarProductsDataSourceListener);
         similarProductsDataSource.reloadData();
-        super.onStart();
+
+        productDataSource.addListener(productDataSourceListener);
+        similarProductsDataSource.addListener(similarProductsDataSourceListener);
+
+        super.onResume();
     }
 
     @Override
-    protected void onStop() {
+    protected void onPause() {
         productDataSource.removeListener(productDataSourceListener);
         similarProductsDataSource.removeListener(similarProductsDataSourceListener);
 
@@ -125,30 +137,41 @@ public class MainActivity extends AppCompatActivity {
         productSizeAdapter.clearSizes();
         similarProductAdapter.clearProducts();
 
-        super.onStop();
+        super.onPause();
     }
 
     private void setupViews(ProductInfo productInfo) {
-        TextView nameTextView = ((TextView) findViewById(R.id.name_text_view));
-        nameTextView.setText(productInfo.getProduct().getRetailer());
 
-        TextView priceTextView = ((TextView) findViewById(R.id.price_text_view));
+        TextView nameTextView = findViewById(R.id.name_text_view);
+        nameTextView.setText(productInfo.getProduct().getName());
+
+        TextView retailerTextView = findViewById(R.id.retailer_text_view);
+        retailerTextView.setText(productInfo.getProduct().getRetailer());
+
+        TextView priceTextView = findViewById(R.id.price_text_view);
         priceTextView.setPaintFlags(priceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        priceTextView.setText("$" + productInfo.getProduct().getPrice());
+        priceTextView.setText(getString(R.string.price, productInfo.getProduct().getPrice()));
 
-        TextView salePriceTextView = ((TextView) findViewById(R.id.sale_price_text_view));
-        salePriceTextView.setText("$" + productInfo.getProduct().getSalePrice());
+        TextView salePriceTextView = findViewById(R.id.sale_price_text_view);
+        Float sale = productInfo.getProduct().getPrice() != 0
+                ? productInfo.getProduct().getSalePrice() / productInfo.getProduct().getPrice() * 100 :
+                0f;
+        salePriceTextView.setText(getString(
+                R.string.sale_price,
+                productInfo.getProduct().getSalePrice(),
+                sale));
 
-        TextView returnsPolicyTextView = ((TextView) findViewById(R.id.return_policy_text_view));
+        TextView returnsPolicyTextView = findViewById(R.id.return_policy_text_view);
         returnsPolicyTextView.setText(productInfo.getProduct().getReturnPolicy());
 
-        TextView recommendationTextView = ((TextView) findViewById(R.id.recommendation_text_view));
-        if (productInfo.getRecommendationLogic() != null && productInfo.getRecommendationLogic().size() > 0) {
-            recommendationTextView.setText(productInfo
-                    .getRecommendationLogic().get(0).replace("U+1", "\\u"));
+        TextView recommendationTextView = findViewById(R.id.recommendation_text_view);
+        if (productInfo.getRecommendationLogic() != null
+                && productInfo.getRecommendationLogic().size() > 0) {
+            recommendationTextView.setText(
+                    prepareEmojiString(productInfo.getRecommendationLogic().get(0)));
         }
 
-        TextView descriptionTextView = ((TextView) findViewById(R.id.description_text_view));
+        TextView descriptionTextView = findViewById(R.id.description_text_view);
         descriptionTextView.setText(productInfo.getProduct().getDescription());
     }
 
@@ -157,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this,
                 LinearLayoutManager.HORIZONTAL,
                 false);
-        RecyclerView recyclerView = ((RecyclerView) findViewById(R.id.size_recycler_view));
+        RecyclerView recyclerView = findViewById(R.id.size_recycler_view);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(productSizeAdapter);
     }
@@ -167,16 +190,15 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this,
                 LinearLayoutManager.HORIZONTAL,
                 false);
-        RecyclerView recyclerView = ((RecyclerView) findViewById(R.id.color_recycler_view));
+        RecyclerView recyclerView = findViewById(R.id.color_recycler_view);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(productColorAdapter);
     }
 
     private void setupImageViewPager() {
-        ViewPager viewPager = ((ViewPager) findViewById(R.id.image_view_pager));
+        ViewPager viewPager = findViewById(R.id.image_view_pager);
         viewPager.setAdapter(productImagePageAdapter);
-        CirclePageIndicator pageIndicator = ((CirclePageIndicator)
-                findViewById(R.id.image_view_pager_indicator));
+        CirclePageIndicator pageIndicator = findViewById(R.id.image_view_pager_indicator);
         pageIndicator.setViewPager(viewPager);
     }
 
@@ -184,8 +206,18 @@ public class MainActivity extends AppCompatActivity {
         GridLayoutManager manager = new GridLayoutManager(
                 MainActivity.this,
                 NUMBER_SIMILAR_PRODUCTS_IN_LINE);
-        RecyclerView recyclerView = ((RecyclerView) findViewById(R.id.similar_recycler_view));
+        RecyclerView recyclerView = findViewById(R.id.similar_recycler_view);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(similarProductAdapter);
+    }
+
+    private String prepareEmojiString(String string) {
+        int index;
+        while ((index = string.indexOf("U+")) != -1) {
+            String hexCode = string.substring(index, index + 7);
+            int decimalCode = Integer.parseInt(hexCode.substring(2), 16);
+            string = string.replace(hexCode, String.format(Locale.US, "&#%d;", decimalCode));
+        }
+        return EmojiParser.parseToUnicode(string);
     }
 }

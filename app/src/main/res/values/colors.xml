@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#BBB</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="main_background">#FFF</color>
     <color name="name_text">#000</color>
+    <color name="retailer_text">#000</color>
     <color name="price_text">#000</color>
     <color name="sale_price_text">#FF4081</color>
     <color name="recommendation_text">#000</color>
@@ -24,4 +26,6 @@
     <color name="page_indicator_stroke">#0000</color>
     <color name="return_policy_title_text">#FF4081</color>
     <color name="return_policy_text">#000</color>
+    <color name="add_to_bag_text">#FFF</color>
+    <color name="add_to_bag_background">#FF4081</color>
 </resources>

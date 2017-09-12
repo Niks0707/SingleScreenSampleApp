@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginEnd="@dimen/offset_small6"
@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/view_similar_product_name_text_view"
+        android:id="@+id/view_similar_product_retailer_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/offset_small6"
@@ -16,7 +16,7 @@
         android:textAlignment="center"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="@color/name_text"
+        android:textColor="@color/retailer_text"
         android:textSize="@dimen/text_size_2"
         android:textStyle="bold" />
 
@@ -47,10 +47,9 @@
 
     <ImageView
         android:id="@+id/view_similar_product_image_view"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="@dimen/similar_product_image_height"
         android:layout_marginTop="@dimen/offset_small4"
         android:adjustViewBounds="true"
-        android:background="@color/image_placeholder_color"
-        android:scaleType="fitXY" />
+        android:background="@color/image_placeholder_color" />
 </LinearLayout>
