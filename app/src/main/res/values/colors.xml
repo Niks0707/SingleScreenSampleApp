@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000</color>
+    <color name="colorPrimaryDark">#BBB</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="name_text">#000</color>
+    <color name="price_text">#000</color>
+    <color name="sale_price_text">#FF4081</color>
+    <color name="recommendation_text">#000</color>
+    <color name="select_size_text">#000</color>
+    <color name="select_color_text">#000</color>
+    <color name="product_description_title_text">#000</color>
+    <color name="product_description_text">#000</color>
+    <color name="pick_up_title_text">#000</color>
+    <color name="pick_up_text">#000</color>
+    <color name="similar_title_text">#000</color>
+    <color name="similar_text">#000</color>
+    <color name="size_text_color">#000</color>
+    <color name="image_placeholder_color">#AAA</color>
+    <color name="size_circle">#FF4081</color>
+    <color name="page_indicator_fill">#333</color>
+    <color name="page_indicator_page">#AAA</color>
+    <color name="page_indicator_stroke">#0000</color>
+    <color name="return_policy_title_text">#FF4081</color>
+    <color name="return_policy_text">#000</color>
+</resources>

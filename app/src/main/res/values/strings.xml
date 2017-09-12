@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Single Screen Sample App</string>
+
+    <string name="select_size">Select a size</string>
+    <string name="select_color">Select a color</string>
+    <string name="product_description">Product description</string>
+    <string name="pick_up_at">Pick up at</string>
+    <string name="pick_up_default">Pick up is not available in store for this item.</string>
+    <string name="similar_title_text">Other items in a similar price range</string>
+    <string name="similar_text">I found some similar items you might want to consider looking as further.</string>
+    <string name="return_policy_title">Free Shipping &amp; Returns</string>
+</resources>
